@@ -11,13 +11,23 @@ class base_lib:
             for l in argo_cache:
                 var = l.split(",")[0].strip()
                 if var_name == var:
-                    string_retrieved = str(l).split(",")[1].strip()
+                    type_var = ""
+                    if "\"" in l:
+                        type_var = l.split("\"",2)[2].replace(",","")
+                        #print(type_var)
+                    #else:
+                    #    type_var = l.split(",")[3]
+                    #    print(type_var)
+                        string_retrieved = str(l).split(",",1)[1].replace(f",{type_var}","")
+                    else:
+                        string_retrieved = str(l).split(",")[1]
+                    #print(string_retrieved)
                     var_ret = True
 
             if var_ret == False:
                 uo.Error(f"\"{var_name}\" isn't a valid variable name")
-                    
-            f = f.replace((f[f.find("{"):f.find("}")+1]), string_retrieved)
+            #print(f)
+            f = f.replace((f[f.find("{"):f.find("}")+1]), string_retrieved) 
             var_ret = False    
         print(f.replace('"', ''))
     def arithmetic(f):

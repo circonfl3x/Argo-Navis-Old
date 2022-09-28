@@ -17,12 +17,14 @@ class parser_stage1:
                 pass
             elif str(f).find("#") == 0:
                 pass
-            elif "=" in f and "\"" not in f.split("=")[0]:
+            elif "=" in f and "\"" not in f.split("=")[0] and not "=>" in f: 
                 #print(f)
                 lexer.variable_name_verify(f, line)
                 lexer.variable_assign(f, line)
             elif f.count('"') - f.count('\\"') == 2 and f.find('"') == 0:
                 base_lib.stdout(f)
+            elif f.count("=>") == 1:
+                lexer.lambda_fn(f)
             else:
                 uo.Error(f"Invalid syntax on line {line}.")
                 exit()

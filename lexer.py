@@ -8,7 +8,7 @@ class lexer:
         name = string.split("=")[0].strip()
         if not str(name).isalnum():
                 if not str(name).replace("_","").isalnum():
-                    uo.Error(f"in line {line}. Variable names cannot contain special characters, only an underscore (_)")
+                    uo.Error(f"in line {line}. `Variable` names cannot contain special characters, only an underscore (_)")
                     exit()
         try:
             name[0].isnum()
@@ -38,7 +38,7 @@ class lexer:
             elif fmt_name == l.split(",")[0] or fmt_name == l.split(",")[0] and fmt_type == "inherit":
                 
                 if(fmt[1].count(":") > 0):
-                    print(f"{fmt_type} {l.split(',')[2]}")
+                    print(f"{fmt_type} {l.split(',')[2]}") 
                     if fmt_type == str(l.split(",")[2]).strip():
                         uo.Warning(f"in line {line}: type already defined in original variable")
                     elif fmt_type != l.split(",")[2]:
@@ -102,6 +102,14 @@ class lexer:
         fstr = open(".argo_cache", "a")
         fstr.write(f"{csv_exp}\n")
         fstr.close()
+    def lambda_fn(string):
+        # syntax: lambda (x) => x+23
+        name = string.split("=>")[0].replace("lambda","").split("(")[0].strip()
+        arguments = string.split("(")[1].split(")")[0].split(",")
+        function = string.split("=>")[1].strip()
+
+        print(function)
+
     
     def parenth_ops(string, line):
         if string.count("\"") == 2:
