@@ -3,13 +3,18 @@ from useful_stuff import uo
 from parser import parser_stage1
 import os
 from os import sys
-
+import platform
 
 
 def main():
     fpath = ""
     if (len(sys.argv) < 2):
         uo.Error("No filepath supplied")
+        exit()
+    try:
+        from colorama import Fore, Style
+    except:
+        print("Error: cannot import module 'colorama'")
         exit()
     
 

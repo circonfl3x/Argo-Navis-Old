@@ -5,13 +5,14 @@ from useful_stuff import uo
 class lexer:
     
     def variable_name_verify(string, line):
-        name = string.split("=")[0].strip()
+        name = string.split("=")[0].strip() # find the name of the variable on the left
         if not str(name).isalnum():
-                if not str(name).replace("_","").isalnum():
-                    uo.Error(f"in line {line}. Variable names cannot contain special characters, only an underscore (_)")
+                if not str(name).replace("_","").isalnum(): # if it isn't alphanumeric and contains characters oither than underscores, throw an error
+                    uo.Error(f"in line {line}. `Variable` names cannot contain special characters, only an underscore (_)")
                     exit()
         try:
-            name[0].isnum()
+            # strings are technically arrays so we can just go to the 0th(1st) character and check if it's an integer
+            name[0].isnum() 
             if name[0].isnum():
                 uo.Error("Start of a variable name cannot be an integer")
                 exit()
@@ -38,7 +39,7 @@ class lexer:
             elif fmt_name == l.split(",")[0] or fmt_name == l.split(",")[0] and fmt_type == "inherit":
                 
                 if(fmt[1].count(":") > 0):
-                    print(f"{fmt_type} {l.split(',')[2]}")
+                    print(f"{fmt_type} {l.split(',')[2]}") 
                     if fmt_type == str(l.split(",")[2]).strip():
                         uo.Warning(f"in line {line}: type already defined in original variable")
                     elif fmt_type != l.split(",")[2]:
@@ -102,8 +103,41 @@ class lexer:
         fstr = open(".argo_cache", "a")
         fstr.write(f"{csv_exp}\n")
         fstr.close()
+    def lambda_fn(string, line):
+        # syntax: lambda name (x) => x+23
+        name = string.split("=>")[0].replace("lambda","").split("(")[0].strip()
+        
+        if not name.isalnum():
+            uo.Error(f"incorrect syntax on line {line}")
+            exit()
+        elif name[0].isnumeric():
+            uo.Error(f"on line {line}. First name of a variable can't be an integer")
+            exit()
+        #elif name.isnumeric():
+        #    uo.Error(f"Name of variable can't only contain numbers")
+        arguments = string.split("(")[1].split(")")[0].split(",")
+        function = string.split("=>")[1].strip()
+        fstr = open(".argo_cache", "a")
+        fstr.write(f"{name},{arguments},{function}")
+        fstr.close()
+
+
+
+
+        #print(arguments)
+    def run(func_name, line):
+        fstr = open(".argo_cache", "r")
+        arguments = ""
+        for lines in fstr:
+            for l in lines:
+                if l.split("(")[0] == func_name:
+                    arguments = l.split("(")[1].replace(")","")
+
+        
+
+
     
-    def parenth_ops(string, line):
+    def parenth_ops(string, line): # deprecated for now
         if string.count("\"") == 2:
             pass
         if string.find("\"") > 0:
