@@ -1,3 +1,7 @@
+# Warning
+I am not working on this anymore, though I may rewrite Argo-Navis one day in C/C++ or Rust
+
+
 # Argo-Navis
 Small and completely useless interpreter written in python. This project isn't meant to write anything serious, just a fun little adventure for myself. I'm not that good at programming in python or in OOP so my code is hideous as well...
 
