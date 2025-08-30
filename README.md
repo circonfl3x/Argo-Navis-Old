@@ -1,4 +1,4 @@
-# Warning
+# Geez this code was ASS lmao
 I am not working on this anymore, though I may rewrite Argo-Navis one day in C/C++ or Rust
 # Update
 I am now rewriting Argo Navis in C. Python version is now dead ig
